@@ -1,37 +1,32 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState } from 'react';
 import '../styles/App.css';
+
 const App = () => {
-  const [value1, setValue1] = useState("");
-  const [value2, setValue2] = useState("");
-  const [result, setResult] = useState(0);
-  useEffect(() => {
-    setResult((prev) => {
-      const num1 = isNaN(value1) ? 0 : +value1;
-      const num2 = isNaN(value2) ? 0 : +value2;
-      return num1 + num2;
-    });
-  }, [value1, value2]);
+  const [number1, setNumber1] = useState(0);
+  const [number2, setNumber2] = useState(0);
+  const [sum, setSum] = useState(0);
+
+  const handleChange1 = (event) => {
+    const parsedNumber1 = parseFloat(event.target.value) || 0;
+    setNumber1(parsedNumber1);
+    setSum(number1 + number2);
+  };
+
+  const handleChange2 = (event) => {
+    const parsedNumber2 = parseFloat(event.target.value) || 0;
+    setNumber2(parsedNumber2);
+    setSum(number1 + number2);
+  };
+
   return (
     <div id="main">
-      <input
-        id="input1"
-        value={value1}
-        onChange={(e) => {
-          setValue1(e.target.value);
-        }}
-      />
+      <input id="input1" type="number" value={number1} onChange={handleChange1} />
       +
-      <input
-        id="input2"
-        value={value2}
-        onChange={(e) => {
-          setValue2(e.target.value);
-        }}
-      />
-      <p id="result">{result}</p>
+      <input id="input2" type="number" value={number2} onChange={handleChange2} />
+      =
+      <p id="result">{sum}</p>
     </div>
   );
-}
-
+};
 
 export default App;
