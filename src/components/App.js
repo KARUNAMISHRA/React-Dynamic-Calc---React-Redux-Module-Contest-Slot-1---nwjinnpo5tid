@@ -1,36 +1,37 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import '../styles/App.css';
 const App = () => {
-  const [num1, setNum1] = useState(0);
-  const [num2, setNum2] = useState(0);
-  const [result, setResult] =useState(0);
-
-  const handleNum1Change = (e) => {
-    setNum1{Number(e.target.value));
-           };
-    const handleNum2Change = (e) => {
-      setNum2{Number(e.target.value));
-             };
-      const handleAddition = () => {
-        setResult(num1 + num2);
-      };
-
+  const [value1, setValue1] = useState("");
+  const [value2, setValue2] = useState("");
+  const [result, setResult] = useState(0);
+  useEffect(() => {
+    setResult((prev) => {
+      const num1 = isNaN(value1) ? 0 : +value1;
+      const num2 = isNaN(value2) ? 0 : +value2;
+      return num1 + num2;
+    });
+  }, [value1, value2]);
   return (
     <div id="main">
-    <label htmlFor="input1"></label>
-      <input id="input1" type="number1" value= {num1}  onChange={handleNum1Change}/>
-       <br />
-    +
-    <label htmlFor="input1"></label>
-      <input id="input2"  type= "number2" value= {num2} onChange={handleNum2Change}/> 
-    <br />
-
-    <button onClick = {handleAddition}>Add Numbers </button>
-      
-      <p id="result">Result: {result}</p>
+      <input
+        id="input1"
+        value={value1}
+        onChange={(e) => {
+          setValue1(e.target.value);
+        }}
+      />
+      +
+      <input
+        id="input2"
+        value={value2}
+        onChange={(e) => {
+          setValue2(e.target.value);
+        }}
+      />
+      <p id="result">{result}</p>
     </div>
   );
-};
+}
 
 
 export default App;
